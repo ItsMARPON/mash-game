@@ -19,8 +19,16 @@ const userSchema = new Schema(
             type: String, 
             required: true,
             minlength: 5,
-        }
-    }
+        },
+
+        savedResults: [categorySchema],
+    },
+
+    {
+        toJSON: {
+          virtuals: true,
+        },
+      }
 );
 
 userSchema.pre('save', async function (next) {
@@ -36,9 +44,6 @@ userSchema.methods.isCorrectPassword = async function (password) {
     return bcrypt.compare(password, this.password);
 };
 
-userSchema.virtual('storyCount').get(function () {
-    return this.savedStories.length;
-});
 
 const User = model('User', userSchema);
 

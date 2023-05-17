@@ -2,11 +2,11 @@ const { gql } = require('apollo-server-express');
 
 const typeDefs = gql`
 type User {
-    _id: ID
-    username: String
+    _id: ID!
+    username: String!
     email: String
-    password: String 
-    categories: [Category]!
+    password: String!
+    saveResults: [Category]
 }
 type Category {
     _id: ID
@@ -26,20 +26,27 @@ type Auth {
 }
 
 type Query {
-    users: [User]
-    user(username: String!): User
     me: User
-    categories(username: String!): [Category]
-    category(categoryId: ID!): Category
 }
+
+input InputCategory {
+    _id: ID
+    mash: String!
+    partner: String!
+    kids: Int!
+    career: String!
+    salary: Int!
+    transportation: String!
+    death: String!
+    deathAge: Int!
+  }
 
 type Mutation {
     addUser(username: String!, email: String!, password: String!): Auth
     login(email: String!, password: String!): Auth
-    addResult(mash: String!, partner: String!, kids: Int!, career: String!, salary: Int!, transportation: String!, death: String!, deathAge: Int!)
-    removeResult(categoryId: ID!): Category
+    addResults(newSavedResults: InputCategory!): User
+    removeResults(categoryId: ID!): User
 }
-
 `;
 
 module.exports = typeDefs;

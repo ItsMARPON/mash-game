@@ -1,17 +1,16 @@
 const { AuthenticationError } = require('apollo-server-express');
-
-//Add more models in 
 const {User, Category} = require('../models');
 const { signToken } = require('../utils/auth');
 
 
 const resolvers = {
     Query: {
-        // Add other model in populate
         me: async (parent, args, context) => {
             if (context.user){
-                return User.findOne({ _id: context.user._id }).populate('categories');
-            }
+                const userData = await User.findOne({ _id: context.user._id }).select( "-__v -password");
+    
+                  return userData;
+                }
             throw new AuthenticationError('You need to be logged in');
         },
     },
@@ -25,13 +24,46 @@ const resolvers = {
         login: async (parent, { email, password }) => {
             const user = await User.findOne({ email });
 
+            if (!user) {
+                throw new AuthenticationError('No user with this email');
+            }
+
+            const correctPw = await user.isCorrectPassword(password);
+
             if (!correctPw){
-                throw new AuthenticationError('incorrect credentials');
+                throw new AuthenticationError('Incorrect credentials');
             }
 
             const token = signToken(user);
 
             return { token, user };
         },
-    }
-}
+        
+        addResults: async (parent, { newSavedResults }, context) => {
+            if (context.user) {
+              const updateUser = await User.findByIdAndUpdate(
+                { _id: context.user._id },
+                { $push: { savedResults: newSavedResults } },
+                { new: true }
+              );
+      
+              return updateUser;
+            }
+            throw new AuthenticationError("You need to be logged in!");
+          },
+        removeResults: async (parent, { categoryId }, context) => {
+            if (context.user) {
+                const updateUser = await User.findByIdAndUpdate(
+                { _id: context.user._id},
+                {$pull: {savedResults: {categoryId} }},
+                {new: true}
+            );
+    
+            return updateUser;
+            throw new AuthenticationError("You need to be logged in!");
+        }
+        },
+    },
+};
+
+module.exports = resolvers;
