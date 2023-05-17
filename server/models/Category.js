@@ -14,7 +14,7 @@ const categorySchema = new Schema({
             trim: true,
         },
         kids: {
-            type: Int,
+            type: Number,
             required: true,
             trim: true,
         },
@@ -26,7 +26,7 @@ const categorySchema = new Schema({
             trim: true,
         },
         salary: {
-            type: Int,
+            type: Number,
             required: true,
             trim: true,
         },
@@ -45,11 +45,11 @@ const categorySchema = new Schema({
             trim: true,
         },
         deathAge: {
-            type: Int,
+            type: Number,
             required: true,
             trim: true,
         }
     });
 
-const Category = model('Category', categorySchema);
+
 module.exports = categorySchema;
