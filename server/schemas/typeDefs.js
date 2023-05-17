@@ -6,7 +6,18 @@ type User {
     username: String
     email: String
     password: String 
+    categories: [Category]!
 }
+type Category {
+    _id: ID
+    partner: String!
+    kids: Int!
+    career: String!
+    salary: Int!
+    transportation: String!
+    death: String!
+    deathAge: Int!
+    }
 
 type Auth {
     token: ID!
@@ -17,11 +28,15 @@ type Query {
     users: [User]
     user(username: String!): User
     me: User
+    categories(username: String!): [Category]
+    category(categoryId: ID!): Category
 }
 
 type Mutation {
     addUser(username: String!, email: String!, password: String!): Auth
     login(email: String!, password: String!): Auth
+    addResult(partner: String!, kids: Int!, career: String!, salary: Int!, transportation: String!, death: String!, deathAge: Int!)
+    removeResult(categoryId: ID!): Category
 }
 
 `;
