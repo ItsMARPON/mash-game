@@ -1,6 +1,11 @@
 const { Schema, model } = require('mongoose');
 
 const categorySchema = new Schema({
+        mash: {
+            type: String, 
+            required: true,
+            trim: true,
+        },
         partner: {
             type: String, 
             required: true,
@@ -46,4 +51,5 @@ const categorySchema = new Schema({
         }
     });
 
+const Category = model('Category', categorySchema);
 module.exports = categorySchema;

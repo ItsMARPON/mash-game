@@ -10,6 +10,7 @@ type User {
 }
 type Category {
     _id: ID
+    mash: String!
     partner: String!
     kids: Int!
     career: String!
@@ -35,7 +36,7 @@ type Query {
 type Mutation {
     addUser(username: String!, email: String!, password: String!): Auth
     login(email: String!, password: String!): Auth
-    addResult(partner: String!, kids: Int!, career: String!, salary: Int!, transportation: String!, death: String!, deathAge: Int!)
+    addResult(mash: String!, partner: String!, kids: Int!, career: String!, salary: Int!, transportation: String!, death: String!, deathAge: Int!)
     removeResult(categoryId: ID!): Category
 }
 
