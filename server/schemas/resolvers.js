@@ -1,12 +1,12 @@
 const { AuthenticationError } = require('apollo-server-express');
 
-//TODO: add more models in 
+//Add more models in 
 const {User} = require('../models');
 const { signToken } = require('../utils/auth');
 
 const resolvers = {
     Query: {
-        //TODO: Add other model in populate
+        // Add other model in populate
         me: async (parent, args, context) => {
             if (context.user){
                 return User.findOne({ _id: context.user._id }).populate('');
