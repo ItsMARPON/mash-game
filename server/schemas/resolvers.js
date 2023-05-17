@@ -1,15 +1,16 @@
 const { AuthenticationError } = require('apollo-server-express');
 
 //Add more models in 
-const {User} = require('../models');
+const {User, Category} = require('../models');
 const { signToken } = require('../utils/auth');
+
 
 const resolvers = {
     Query: {
         // Add other model in populate
         me: async (parent, args, context) => {
             if (context.user){
-                return User.findOne({ _id: context.user._id }).populate('');
+                return User.findOne({ _id: context.user._id }).populate('categories');
             }
             throw new AuthenticationError('You need to be logged in');
         },
