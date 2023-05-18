@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ApolloClient, ApolloProvider, InMemoryCache, createHttpLink } from '@apollo/client';
 import {setContext} from '@apollo/client/link/context';
-import './App.css';
+// import './App.css';
 import Signup, {SignupProps} from './components/Signup';
 
 
@@ -37,7 +37,6 @@ const signupProps: SignupProps = {
   email: '',
   password: ''
 }
-
 
 
   return (
