@@ -1,8 +1,10 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ApolloClient, ApolloProvider, InMemoryCache, createHttpLink } from '@apollo/client';
 import {setContext} from '@apollo/client/link/context';
 import './App.css';
+import Signup, {SignupProps} from './components/Signup';
+
 
 // GraphQL API endpoint
 const httpLink = createHttpLink({
@@ -28,10 +30,19 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
+
 function App() {
+const signupProps: SignupProps = {
+  name: '',
+  email: '',
+  password: ''
+}
+
+
   return (
     <ApolloProvider client={client}>
      <h1> Hello MASH project 3 team!</h1>
+     <Signup {...signupProps}/>
     </ApolloProvider>
   );
 }
