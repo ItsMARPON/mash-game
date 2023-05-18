@@ -1,5 +1,5 @@
 const { AuthenticationError } = require("apollo-server-express");
-const { User, categorySchema } = require("../models");
+const { User, gameResultSchema } = require("../models");
 const { signToken } = require("../utils/auth");
 
 const resolvers = {
@@ -51,11 +51,11 @@ const resolvers = {
       }
       throw new AuthenticationError("You need to be logged in!");
     },
-    removeResults: async (parent, { categoryId }, context) => {
+    removeResults: async (parent, { gameResultId }, context) => {
       if (context.user) {
         const updateUser = await User.findByIdAndUpdate(
           { _id: context.user._id },
-          { $pull: { savedResults: { categoryId } } },
+          { $pull: { savedResults: { gameResultId } } },
           { new: true }
         );
         return updateUser;
