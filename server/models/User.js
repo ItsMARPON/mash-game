@@ -1,7 +1,7 @@
 const { Schema, model } = require('mongoose');
 const bcrypt = require('bcrypt');
 
-const categorySchema = require('./Category');
+const gameResultSchema = require('./GameResult');
 
 const userSchema = new Schema(
     {
@@ -23,7 +23,7 @@ const userSchema = new Schema(
             minlength: 5,
         },
 
-        savedResults: [categorySchema],
+        savedResults: [gameResultSchema],
     },
 
     {

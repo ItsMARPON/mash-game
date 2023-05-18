@@ -6,10 +6,10 @@ type User {
     username: String!
     email: String
     password: String!
-    saveResults: [Category]
+    saveResults: [GameResult]
 }
-type Category {
-    _id: ID
+type GameResult {
+    _id: ID!
     mash: String!
     partner: String!
     kids: Int!
@@ -29,7 +29,7 @@ type Query {
     me: User
 }
 
-input InputCategory {
+input InputGameResult {
     _id: ID
     mash: String!
     partner: String!
@@ -44,8 +44,8 @@ input InputCategory {
 type Mutation {
     addUser(username: String!, email: String!, password: String!): Auth
     login(email: String!, password: String!): Auth
-    addResults(newSavedResults: InputCategory!): User
-    removeResults(categoryId: ID!): User
+    addResults(newSavedResults: InputGameResult!): User
+    removeResults(gameResultId: ID!): User
 }
 `;
 
