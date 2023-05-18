@@ -51,6 +51,7 @@ const resolvers = {
       }
       throw new AuthenticationError("You need to be logged in!");
     },
+    
     removeResults: async (parent, { gameResultId }, context) => {
       if (context.user) {
         const updateUser = await User.findByIdAndUpdate(
@@ -60,7 +61,7 @@ const resolvers = {
         );
         return updateUser;
       }
-        throw new AuthenticationError("You need to be logged in!");
+      throw new AuthenticationError("You need to be logged in!");
     },
   },
 };
