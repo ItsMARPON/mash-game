@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect} from "react";
 import "./Signup.css";
 import { Link } from "react-router-dom";
 
@@ -17,9 +17,11 @@ const Signup = ({ name, email, password }: SignupProps) => {
     password: "",
   });
 
+
   // Update the state based on user input changes to form
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
+
 
     setUserFormState({
       ...userFormState,
@@ -44,11 +46,11 @@ const Signup = ({ name, email, password }: SignupProps) => {
     };
   };
 
-  setUserFormState({
-    name: "",
-    email: "",
-    password: "",
-  });
+  // setUserFormState({
+  //   name: "",
+  //   email: "",
+  //   password: "",
+  // });
 
   return (
     <div className="w-full max-w-xs">
@@ -90,7 +92,7 @@ const Signup = ({ name, email, password }: SignupProps) => {
           </label>
         <input
           className="form-input shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
-          placeholder="******"
+          placeholder="*********"
           name="password"
           type="password"
           value={userFormState.password}
@@ -99,7 +101,7 @@ const Signup = ({ name, email, password }: SignupProps) => {
         <p className="text-red-500 text-xs italic">Please create a password.</p>
       </div>
       <div className="flex items-center justify-between">
-        <button className="signup-submit" type="submit">
+        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
           Sign up
         </button>
         </div>
