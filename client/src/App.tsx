@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ApolloClient, ApolloProvider, InMemoryCache, createHttpLink } from '@apollo/client';
 import {setContext} from '@apollo/client/link/context';
-import './App.css';
+// import './App.css';
 import Signup, {SignupProps} from './components/Signup';
 
 
@@ -41,7 +41,17 @@ const signupProps: SignupProps = {
 
   return (
     <ApolloProvider client={client}>
-     <h1> Hello MASH project 3 team!</h1>
+      <div className="container mx-auto bg-gray-200 rounded-xl shadow border p-8 m-10">
+      <p className="text-3xl text-gray-700 font-bold mb-5">
+      Hello MASH project 3 team!
+      </p>
+      <p className="text-gray-500 text-lg">
+        Something should be shown here
+      </p>
+      <h1 className="text-3xl font-bold underline text-red-600">
+      Simple React Typescript Tailwind Sample
+    </h1>
+    </div>
      <Signup {...signupProps}/>
     </ApolloProvider>
   );

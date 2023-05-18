@@ -7,8 +7,10 @@ const typeDefs = gql`
     email: String
     password: String!
     saveResults: [GameResult]
-  }
-  type GameResult {
+}
+
+type GameResult {
+
     _id: ID!
     mash: String!
     partner: String!
@@ -30,6 +32,7 @@ const typeDefs = gql`
   }
 
   input InputGameResult {
+
     _id: ID
     mash: String!
     partner: String!
@@ -47,7 +50,7 @@ const typeDefs = gql`
     addResults(newSavedResults: InputGameResult!): User
     removeResults(gameResultId: ID!): User
     
-  }
+}
 `;
 
 module.exports = typeDefs;
