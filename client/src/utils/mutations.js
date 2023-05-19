@@ -74,5 +74,6 @@ export const UPDATE_USERNAME = gql`
       email: String
       password: String!
       savedResults: [GameResult]
+    }
   }
-}` 
+`;
