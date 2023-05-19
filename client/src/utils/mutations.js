@@ -31,6 +31,7 @@ export const SAVE_GAME_RESULT = gql`
       username
       email
       savedResults {
+        _id: ID!
         mash
         partner
         kids
@@ -51,6 +52,7 @@ export const REMOVE_GAME_RESULT = gql`
       username
       email
       savedResults {
+        _id: ID!
         mash
         partner
         kids
