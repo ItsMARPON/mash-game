@@ -65,3 +65,14 @@ export const REMOVE_GAME_RESULT = gql`
     }
   }
 `;
+
+export const UPDATE_USERNAME = gql`
+  mutation updateUsername($username: String!) {
+    updateUsername(username: $username) {
+      _id: ID!
+      username: String!
+      email: String
+      password: String!
+      savedResults: [GameResult]
+  }
+}` 
