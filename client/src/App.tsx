@@ -4,6 +4,8 @@ import { ApolloClient, ApolloProvider, InMemoryCache, createHttpLink } from '@ap
 import {setContext} from '@apollo/client/link/context';
 // import './App.css';
 import Signup, {SignupProps} from './components/Signup';
+import Profile from './pages/Profile';
+import Start from './pages/Profile';
 
 
 // GraphQL API endpoint
@@ -45,13 +47,7 @@ const signupProps: SignupProps = {
       <p className="text-3xl text-gray-700 font-bold mb-5">
       Hello MASH project 3 team!
       </p>
-      <p className="text-gray-500 text-lg">
-        Something should be shown here
-      </p>
-      <h1 className="text-3xl font-bold underline text-red-600">
-      Simple React Typescript Tailwind Sample
-    </h1>
-    </div>
+      </div>
      <Signup {...signupProps}/>
     </ApolloProvider>
   );
