@@ -14,7 +14,7 @@ const gameResultSchema = new Schema({
     trim: true,
   },
   kids: {
-    type: BigInt,
+    type: Number,
     required: true,
     trim: true,
     min: 0,
@@ -49,7 +49,7 @@ const gameResultSchema = new Schema({
     trim: true,
   },
   deathAge: {
-    type: BigInt,
+    type: Number,
     required: true,
     trim: true,
     min: 0,
