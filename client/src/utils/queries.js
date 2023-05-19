@@ -7,6 +7,7 @@ export const GET_ME = gql`
       username
       email
       savedResults {
+        _id: ID!
         mash
         partner
         kids

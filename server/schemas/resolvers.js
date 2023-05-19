@@ -39,11 +39,11 @@ const resolvers = {
       return { token, user };
     },
 
-    addResults: async (parent, { newSavedResults }, context) => {
+    addGameResults: async (parent, { newSavedGameResults }, context) => {
       if (context.user) {
         const updateUser = await User.findByIdAndUpdate(
           { _id: context.user._id },
-          { $push: { savedResults: newSavedResults } },
+          { $push: { savedResults: newSavedGameResults } },
           { new: true }
         );
 
@@ -52,11 +52,11 @@ const resolvers = {
       throw new AuthenticationError("You need to be logged in!");
     },
     
-    removeResults: async (parent, { gameResultId }, context) => {
+    removeGameResults: async (parent, { id }, context) => {
       if (context.user) {
         const updateUser = await User.findByIdAndUpdate(
           { _id: context.user._id },
-          { $pull: { savedResults: { gameResultId } } },
+          { $pull: { savedResults: { _id: id } } },
           { new: true }
         );
         return updateUser;
