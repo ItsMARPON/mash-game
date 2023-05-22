@@ -1,4 +1,5 @@
 const { AuthenticationError } = require("apollo-server-express");
+const { getUserInput } = require(".");
 const { User, gameResultSchema } = require("../models");
 const { signToken } = require("../utils/auth");
 
@@ -12,6 +13,16 @@ const resolvers = {
         return userData;
       }
       throw new AuthenticationError("You need to be logged in");
+    },
+    //sorting options
+    areas: () => {
+      const optionsPerArea = getOptionsPerArea();
+      const results = processInput(optionsPerArea);
+      return Object.entries(results).map(([area, result]) => ({
+        area,
+        options: result.options.map((option) => ({ value: option })),
+        selectedOption: result.selectedOption,
+      }));
     },
   },
 
@@ -62,6 +73,11 @@ const resolvers = {
         return updateUser;
       }
       throw new AuthenticationError("You need to be logged in!");
+    },
+    
+    enterOptions: async () => {
+      await getUserInput();
+      return true;
     },
   },
 };

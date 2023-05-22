@@ -9,6 +9,16 @@ const typeDefs = gql`
     savedResults: [GameResult]
 }
 
+type Option {
+  value: String!
+}
+
+type AreaResult {
+  area: String!
+  options: [Option!]!
+  selectedOption: String!
+}
+
 type GameResult {
     _id: ID!
     mash: String!
@@ -28,6 +38,7 @@ type GameResult {
 
   type Query {
     me: User
+    areas: [AreaResult!]!
   }
 
   input InputGameResult {
@@ -48,7 +59,7 @@ type GameResult {
     login(email: String!, password: String!): Auth
     addGameResults(newSavedResults: InputGameResult!): User
     removeGameResults(id: ID!): User
-    
+    enterOptions: Boolean  
 }
 `;
 

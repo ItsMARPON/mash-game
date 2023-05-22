@@ -8,6 +8,10 @@ const { typeDefs, resolvers } = require("./schemas");
 const { authMiddleware } = require("./utils/auth");
 const db = require("./config/connection");
 
+// Import Sorting
+const { getUserInput, getOptionsPerArea } = require('./utils/InputGame');
+const { processInput } = require('./utils/Sorter');
+
 const PORT = process.env.PORT || 3001;
 const app = express();
 // use ApolloServer
