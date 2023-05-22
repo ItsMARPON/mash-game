@@ -48,7 +48,7 @@ type GameResult {
     login(email: String!, password: String!): Auth
     addGameResults(newSavedResults: InputGameResult!): User
     removeGameResults(id: ID!): User
-    
+    updateUsername(username: String!): User
 }
 `;
 

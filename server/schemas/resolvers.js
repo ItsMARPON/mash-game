@@ -63,6 +63,18 @@ const resolvers = {
       }
       throw new AuthenticationError("You need to be logged in!");
     },
+
+    updateUsername: async (parent, { username }, context) => {
+      if (context.user) {
+        return await User.findByIdAndUpdate(
+          context.User._id,
+          { username },
+          { new: true }
+        )
+          .populate('savedResults')
+      }
+      throw new AuthenticationError('Not logged in')
+    },
   },
 };
 
