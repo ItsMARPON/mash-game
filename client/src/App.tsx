@@ -4,8 +4,10 @@ import { ApolloClient, ApolloProvider, InMemoryCache, createHttpLink } from '@ap
 import {setContext} from '@apollo/client/link/context';
 // import './App.css';
 import Signup, {SignupProps} from './components/Signup';
+import Navbar from './components/Navbar';
 import Profile from './pages/Profile';
-import Start from './pages/Profile';
+import Home from './pages/Home';
+import Start from './pages/Start';
 
 
 // GraphQL API endpoint
@@ -43,12 +45,38 @@ const signupProps: SignupProps = {
 
   return (
     <ApolloProvider client={client}>
-      <div className="container mx-auto bg-gray-200 rounded-xl shadow border p-8 m-10">
-      <p className="text-3xl text-gray-700 font-bold mb-5">
-      Hello MASH project 3 team!
-      </p>
-      </div>
-     <Signup {...signupProps}/>
+      <Router>
+        <div className="flex-column justify-flex-start min-100-vh">
+          <Navbar />
+          <div className="container">
+            {/* Wrap Route elements in a Routes component */}
+            <Routes>
+              {/* Define routes using the Route component to render different page components at different paths */}
+              {/* Path to show the Landing Start Page */}
+              <Route 
+                path="/" 
+                element={<Start />} 
+              />
+              {/* Path to the MASH Game */}
+              <Route 
+                path="/home" 
+                element={<Home />} 
+              />
+              <Route 
+                path="/signup" 
+                element={<Signup {...signupProps} />} 
+              />
+              {/*Path to Profile for Logged In User */}
+              <Route 
+                path="/profiles/:profileId" 
+                element={<Profile />} 
+              />
+              <Route path="*" element={<h2> Page Cannot Be Found </h2>} />
+            </Routes>
+          </div>
+
+        </div>
+      </Router>
     </ApolloProvider>
   );
 }
