@@ -31,7 +31,6 @@ type resultData {
   }
 
 input InputData {
-    id: ID!
     mash: String!
     partner: String!
     kids: Int!
