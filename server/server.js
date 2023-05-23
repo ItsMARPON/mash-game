@@ -44,3 +44,4 @@ const startApolloServer = async (typeDefs, resolvers) => {
 };
 
 startApolloServer(typeDefs, resolvers);
+// GraphQL server started and then express server
