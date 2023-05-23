@@ -6,6 +6,7 @@ import {setContext} from '@apollo/client/link/context';
 import Signup, {SignupProps} from './components/Signup';
 import Navbar from './components/Navbar';
 import Profile from './pages/Profile';
+import How from './pages/How';
 import Home, {HomeProps} from './pages/Home';
 import Start from './pages/Start';
 
@@ -67,6 +68,12 @@ const homeProps: HomeProps ={
                 path="/home" 
                 element={<Home {...homeProps} />} 
               />
+              {/* Path to How to Play Game */}
+              <Route 
+                path="/how" 
+                element={<How />} 
+              />
+              {/* Path to Signup */}
               <Route 
                 path="/signup" 
                 element={<Signup {...signupProps} />} 
