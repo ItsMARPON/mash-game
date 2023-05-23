@@ -24,6 +24,27 @@ export const ADD_USER = gql`
   }
 `;
 
+export const ADD_GAME_RESULT = gql`
+  mutation addGameResult($newSavedResults: InputData!) {
+    addGameResult(newSavedResults: $newSavedResults) {
+      _id
+      username
+      email
+      savedResults {
+        _id: ID!
+        mash
+        partner
+        kids
+        career
+        salary
+        transportation
+        death
+        deathAge
+      }
+    }
+  }
+`;
+
 export const REMOVE_GAME_RESULT = gql`
   mutation removeGameResult($idToRemove: ID!) {
     removeGameResult(id: $idToRemove) {

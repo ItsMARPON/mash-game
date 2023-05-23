@@ -30,9 +30,22 @@ type resultData {
     me: User
   }
 
+input InputData {
+    id: ID!
+    mash: String!
+    partner: String!
+    kids: Int!
+    career: String!
+    salary: Int!
+    transportation: String!
+    death: String!
+    deathAge: Int!
+}
+
   type Mutation {
     addUser(username: String!, email: String!, password: String!): Auth
     login(email: String!, password: String!): Auth
+    addGameResults(newSavedResults: InputData): User
     removeGameResults(id: ID!): User
     updateUsername(username: String!): User
 }
