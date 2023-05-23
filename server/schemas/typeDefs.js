@@ -30,23 +30,22 @@ type GameResult {
     me: User
   }
 
-  input InputGameResult {
-
+  input MashGameInput {
     _id: ID
-    mash: String!
-    partner: String!
-    kids: Int!
-    career: String!
-    salary: Int!
-    transportation: String!
-    death: String!
-    deathAge: Int!
+    partners: [String]!
+    numberOfKids: [Int]!
+    careers: [String]!
+    salaries: [Int]!
+    modesOfTransportation: [String]!
+    meansOfDeath: [String]!
+    agesOfDeath: [Int]!
+    magicNumber: Int
   }
 
   type Mutation {
     addUser(username: String!, email: String!, password: String!): Auth
     login(email: String!, password: String!): Auth
-    addGameResults(newSavedResults: InputGameResult!): User
+    createNewMash(newMash: MashGameInput!): GameResult
     removeGameResults(id: ID!): User
     updateUsername(username: String!): User
 }

@@ -2,6 +2,16 @@ const { AuthenticationError } = require("apollo-server-express");
 const { User, gameResultSchema } = require("../models");
 const { signToken } = require("../utils/auth");
 
+const MASH = ['Mansion', 'Apartment', 'Shack', 'Homeless']
+
+const getRandom = list => {
+  const length = list.length
+  const index = Math.random() * (length-1);
+  
+  return list[index]
+}
+
+
 const resolvers = {
   Query: {
     me: async (parent, args, context) => {
@@ -13,6 +23,7 @@ const resolvers = {
       }
       throw new AuthenticationError("You need to be logged in");
     },
+
   },
 
   Mutation: {
@@ -38,18 +49,31 @@ const resolvers = {
 
       return { token, user };
     },
+    createNewMash: async (parent, { newMash }, context) => {
+      const { partners, numberOfKids, careers, salaries, modesOfTransportation, meansOfDeath, agesOfDeath, magicNumber} = newMash
+      const partner = getRandom(partners)
+      const kids = getRandom(numberOfKids)
+      const career = getRandom(careers)
+      const salary = getRandom(salaries)
+      const transportation = getRandom(modesOfTransportation)
+      const death = getRandom(meansOfDeath)
+      const ageOfDeath = getRandom(agesOfDeath)
+      const mash = getRandom(MASH)
 
-    addGameResults: async (parent, { newSavedGameResults }, context) => {
-      if (context.user) {
-        const updateUser = await User.findByIdAndUpdate(
-          { _id: context.user._id },
-          { $push: { savedResults: newSavedGameResults } },
-          { new: true }
-        );
+      const gameResult = new gameResultSchema(partner, kids, career, salary, transportation, death, ageOfDeath, mash)
 
-        return updateUser;
-      }
-      throw new AuthenticationError("You need to be logged in!");
+
+   
+      // if (context.user) {
+      //   const updateUser = await User.findByIdAndUpdate(
+      //     { _id: context.user._id },
+      //     { $push: { savedResults: newMash } },
+      //     { new: true }
+      //   );
+
+      //   return updateUser;
+      // }
+      // throw new AuthenticationError("You need to be logged in!");
     },
     
     removeGameResults: async (parent, { id }, context) => {
