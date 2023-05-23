@@ -1,16 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Navbar from '../components/Navbar';
-import Home from './Home';
-import Profile from './Profile';
+// import Home from './Home';
+// import Profile from './Profile';
 
-interface Props {
 
-}
 const Start = () => {
 
 
   return (
     <div>
+      <Navbar />
       <span>
       <p>Bored and curious about MASH? Give MASH a try and play the game to enjoy a few good laughs and moments doing something fun.</p>
       </span>
