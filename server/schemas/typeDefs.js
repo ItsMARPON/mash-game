@@ -6,10 +6,10 @@ const typeDefs = gql`
     username: String!
     email: String
     password: String!
-    savedResults: [GameResult]
+    savedResults: [resultData]
 }
 
-type GameResult {
+type resultData {
     _id: ID!
     mash: String!
     partner: String!
