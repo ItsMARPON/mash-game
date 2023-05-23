@@ -6,7 +6,7 @@ import {setContext} from '@apollo/client/link/context';
 import Signup, {SignupProps} from './components/Signup';
 import Navbar from './components/Navbar';
 import Profile from './pages/Profile';
-import Home from './pages/Home';
+import Home, {HomeProps} from './pages/Home';
 import Start from './pages/Start';
 
 
@@ -42,6 +42,11 @@ const signupProps: SignupProps = {
   password: ''
 }
 
+const homeProps: HomeProps ={
+  handleSubmit: (e: React.FormEvent<EventTarget>): void => {
+    let target = e.target as HTMLInputElement;
+}
+}
 
   return (
     <ApolloProvider client={client}>
@@ -60,7 +65,7 @@ const signupProps: SignupProps = {
               {/* Path to the MASH Game */}
               <Route 
                 path="/home" 
-                element={<Home />} 
+                element={<Home {...homeProps} />} 
               />
               <Route 
                 path="/signup" 
