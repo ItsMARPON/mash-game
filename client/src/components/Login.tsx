@@ -1,8 +1,31 @@
-import React from "react";
-
+import React, { useState } from "react";
+import { useMutation } from '@apollo/client';
+import { LOGIN_USER } from "../utils/mutations";
+import Auth from "../utils/auth";
 type Props = {};
 
 const Login = (props: Props) => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const [loginUser, { error }] = useMutation(LOGIN_USER);
+ 
+  const handleSubmit = async (e: React.FormEvent<EventTarget>) => {
+    e.preventDefault();
+
+    try {
+      const { data } = await loginUser({
+        variables: { email, password },
+      });
+
+      // console.log(token);
+      
+      // window.location.reload();
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
   return (
     <section className="w-screen">
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
@@ -11,7 +34,7 @@ const Login = (props: Props) => {
             <h1 className="text-xl font-bold leading-tight tracking-tight text-white md:text-2xl">
               Log in to your account
             </h1>
-            <form className="space-y-4 md:space-y-6" action="#">
+            <form onSubmit={handleSubmit} className="space-y-4 md:space-y-6" action="#">
               <div>
                 <label className="block mb-2 text-sm font-medium text-white">
                   Email
@@ -20,6 +43,8 @@ const Login = (props: Props) => {
                   type="email"
                   name="email"
                   id="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5"
                   placeholder="name@company.com"
                 ></input>
@@ -33,6 +58,8 @@ const Login = (props: Props) => {
                   name="password"
                   id="password"
                   placeholder="••••••••"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                   className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 "
                 ></input>
               </div>
