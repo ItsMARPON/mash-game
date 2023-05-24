@@ -1,5 +1,9 @@
 import React, { useState } from "react";
-import house from "../assets/images/mashHouse.png"
+import { useMutation } from '@apollo/client';
+import { ADD_GAME_RESULT } from "../utils/mutations";
+import Auth from "../utils/auth";
+
+import house from "../assets/images/mashHouse.png";
 export interface HomeProps {
   handleSubmit: (e: React.FormEvent<EventTarget>) => void;
 };
@@ -66,7 +70,9 @@ const Home = (props: HomeProps) => {
     "Hotdog",
   ];
 
-  const handleSubmit = (e: React.FormEvent<EventTarget>) => {
+  const [addGameResult, { error }] = useMutation(ADD_GAME_RESULT);
+
+  const handleSubmit = async (e: React.FormEvent<EventTarget>) => {
     e.preventDefault();
 
     let selectedMash;
@@ -169,7 +175,6 @@ const Home = (props: HomeProps) => {
 
     }
 
-
     const resultData = {
       "mash": `${selectedMash}`,
       "partner": `${selectedPartner}`,
@@ -184,6 +189,24 @@ const Home = (props: HomeProps) => {
     const resultText = `You will marry ${selectedPartner} and have ${selectedKids} kids together. You will live in a ${selectedMash}. You will work as a ${selectedCareer} for a living, make $${selectedSalary} a year, and drive a ${selectedCar}. You will die at the age of ${selectedDeathAge} by ${selectedDeath}.`;
     setResult(resultText);
     
+    const token = Auth.loggedIn() ? Auth.getToken() : null;
+  
+    if (!token) {
+      console.log(resultData);
+      return false;
+    }
+
+    try {
+      const { data } = await addGameResult({
+        variables: { ...resultData },
+      });
+
+      window.location.reload();
+    } catch (err) {
+      console.error(err);
+    }
+
+
     console.log(resultData);
   };
 
