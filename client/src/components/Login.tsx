@@ -1,30 +1,29 @@
 import React, { useState } from "react";
-import { useMutation } from '@apollo/client';
+import { useMutation } from "@apollo/client";
 import { LOGIN_USER } from "../utils/mutations";
 import Auth from "../utils/auth";
-type Props = {};
 
-const Login = (props: Props) => {
+const Login = (): JSX.Element => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const [loginUser, { error }] = useMutation(LOGIN_USER);
- 
+
   const handleSubmit = async (e: React.FormEvent<EventTarget>) => {
     e.preventDefault();
 
     try {
-      const { data } = await loginUser({
-        variables: { email, password },
-      });
+      const { data } = await loginUser({ variables: { email, password } });
 
       // console.log(token);
-      
+
       // window.location.reload();
+
+      console.log(data.user);
     } catch (err) {
       console.error(err);
     }
-  }
+  };
 
   return (
     <section className="w-screen">
@@ -34,7 +33,11 @@ const Login = (props: Props) => {
             <h1 className="text-xl font-bold leading-tight tracking-tight text-white md:text-2xl">
               Log in to your account
             </h1>
-            <form onSubmit={handleSubmit} className="space-y-4 md:space-y-6" action="#">
+            <form
+              onSubmit={handleSubmit}
+              className="space-y-4 md:space-y-6"
+              action="#"
+            >
               <div>
                 <label className="block mb-2 text-sm font-medium text-white">
                   Email
@@ -75,7 +78,7 @@ const Login = (props: Props) => {
               <p className="text-sm font-light text-white">
                 Dont have an account yet?{" "}
                 <a
-                  href="#"
+                  href="/signup"
                   className="font-medium text-primary-600 hover:underline"
                 >
                   Sign up
