@@ -6,10 +6,6 @@ const Login = (props: Props) => {
   return (
     <section className="w-screen">
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
-        <a
-          href="#"
-          className="flex items-center mb-6 text-2xl font-semibold text-gray-900"
-        ></a>
         <div className="w-full rounded-lg shadow dark:border md:mt-0 sm:max-w-md bg-gray-500">
           <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
             <h1 className="text-xl font-bold leading-tight tracking-tight text-white md:text-2xl">
@@ -45,7 +41,7 @@ const Login = (props: Props) => {
               </div>
               <button
                 type="submit"
-                className="w-full bg-white text-black focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                className="w-full bg-white text-black font-medium rounded-lg text-sm px-5 py-2.5 text-center"
               >
                 Sign in
               </button>
