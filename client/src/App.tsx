@@ -38,7 +38,7 @@ const client = new ApolloClient({
 
 function App() {
 const signupProps: SignupProps = {
-  name: '',
+  username: '',
   email: '',
   password: ''
 }
