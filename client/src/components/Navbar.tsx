@@ -2,11 +2,11 @@ import React from "react";
 // import ReactDOM from "react-dom/client";
 import { Link } from "react-router-dom";
 import Menu from './Menu';
-import Home from '../pages/Home';
-import Login from '../components/Login';
-import Signup from '../components/Signup';
-import Profile from '../pages/Profile';
-import Start from '../pages/Start';
+// import Home from '../pages/Home';
+// import Login from '../components/Login';
+// import Signup from '../components/Signup';
+// import Profile from '../pages/Profile';
+// import Start from '../pages/Start';
 
 interface NavbarProps {
 
