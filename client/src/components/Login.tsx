@@ -1,25 +1,33 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import { useMutation } from "@apollo/client";
 import { LOGIN_USER } from "../utils/mutations";
-import Auth from "../utils/auth";
+// import Auth from "../utils/auth";
 
 const Login = (): JSX.Element => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+ 
+  const [userData, setUserData] = useState({email: '', password: ''});
 
-  const [loginUser, { error }] = useMutation(LOGIN_USER);
+  const [login, {data}] = useMutation(LOGIN_USER);
 
-  const handleSubmit = async (e: React.FormEvent<EventTarget>) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+    setUserData({ ...userData, [name]: value });
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     try {
-      const { data } = await loginUser({ variables: { email, password } });
+      const { data } = await login({ variables: { ...userData} });
 
-      // console.log(token);
+      if (data.errors?.length > 0) {
+        console.log("Error but we made it this far");
+      } else {
+        console.log("This is a success");
+      }
 
-      // window.location.reload();
-
-      console.log(data.user);
+      console.log(data);
     } catch (err) {
       console.error(err);
     }
@@ -27,6 +35,12 @@ const Login = (): JSX.Element => {
 
   return (
     <section className="w-screen">
+      {data ? (
+        <p>
+          Success!
+          <Link to="/profile">Go to Profile</Link>
+        </p>
+      ): (
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
         <div className="w-full rounded-lg shadow-2xl shadow-black dark:border md:mt-0 sm:max-w-md bg-gray-500">
           <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
@@ -36,7 +50,6 @@ const Login = (): JSX.Element => {
             <form
               onSubmit={handleSubmit}
               className="space-y-4 md:space-y-6"
-              action="#"
             >
               <div>
                 <label className="block mb-2 text-sm font-medium text-white">
@@ -46,11 +59,11 @@ const Login = (): JSX.Element => {
                   type="email"
                   name="email"
                   id="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  value={userData.email}
+                  onChange={handleChange}
                   className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5"
                   placeholder="name@company.com"
-                ></input>
+                />
               </div>
               <div>
                 <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
@@ -61,10 +74,10 @@ const Login = (): JSX.Element => {
                   name="password"
                   id="password"
                   placeholder="••••••••"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  value={userData.password}
+                  onChange={handleChange}
                   className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 "
-                ></input>
+                />
               </div>
               <div className="flex items-center justify-between">
                 <div className="flex items-start"></div>
@@ -88,6 +101,8 @@ const Login = (): JSX.Element => {
           </div>
         </div>
       </div>
+      
+      )}
     </section>
   );
 };
