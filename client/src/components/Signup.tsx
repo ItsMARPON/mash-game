@@ -1,22 +1,28 @@
 import React, { useState, useEffect} from "react";
 import "./Signup.css";
-import { Link } from "react-router-dom";
+import {useMutation} from '@apollo/client';
+import { ADD_USER } from "../utils/mutations";
+
+import Auth from '../utils/auth';
 
 export interface SignupProps {
   // userFormState: string;
   // setUserFormState: React.Dispatch<React.SetStateAction<string>>;
-  name: string;
+  username: string;
   email: string;
   password: string;
 }
 
-const Signup = ({ name, email, password }: SignupProps) => {
+const Signup = ({ username, email, password }: SignupProps) => {
   const [userFormState, setUserFormState] = useState({
-    name: "",
+    username: "",
     email: "",
     password: "",
   });
 
+  const [addUser, {loading, error}] = useMutation(ADD_USER);
+  if(loading) return 'Submitting...';
+  if (error) return `Submission error! ${error.message}`;
 
   // Update the state based on user input changes to form
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -38,19 +44,25 @@ const Signup = ({ name, email, password }: SignupProps) => {
       event.preventDefault();
       event.stopPropagation();
     }
+    try {
+      const {data} = await addUser({variables: {...userFormState}});
 
-    const data = {
-      name: userFormState.name,
-      email: userFormState.email,
-      password: userFormState.password,
-    };
+      Auth.login(data.addUser.token)
+
+    } catch (err){
+      console.log(err);
+    }
+
+    setUserFormState({
+    username: "",
+    email: "",
+    password: "",
+  });
+
+
+
   };
 
-  // setUserFormState({
-  //   name: "",
-  //   email: "",
-  //   password: "",
-  // });
 
   return (
     <div className="w-full max-w-xs">
@@ -69,7 +81,7 @@ const Signup = ({ name, email, password }: SignupProps) => {
             placeholder="Your username"
             name="name"
             type="text"
-            value={userFormState.name}
+            value={userFormState.username}
             onChange={handleChange}
           />
         </div>
