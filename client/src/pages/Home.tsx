@@ -191,7 +191,7 @@ const Home = (props: HomeProps) => {
   return (
     <div>
       <div
-        className="flex justify-center items-center h-screen"
+        className="flex justify-center items-center h-screen w-screen"
         style={{
           backgroundImage: `url(${house})`,
           backgroundSize: "cover",

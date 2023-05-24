@@ -9,6 +9,7 @@ import Profile from './pages/Profile';
 import How from './pages/How';
 import Home, {HomeProps} from './pages/Home';
 import Start from './pages/Start';
+import Login from './components/Login';
 
 
 // GraphQL API endpoint
@@ -73,6 +74,8 @@ const homeProps: HomeProps ={
                 path="/how" 
                 element={<How />} 
               />
+              <Route path='/login'
+              element={<Login />} />
               {/* Path to Signup */}
               <Route 
                 path="/signup" 
