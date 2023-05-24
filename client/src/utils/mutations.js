@@ -51,8 +51,8 @@ export const ADD_USER = gql`
 `;
 
 export const ADD_GAME_RESULT = gql`
-  mutation addGameResult($newSavedResults: InputData) {
-    addGameResult(newSavedResults: $newSavedResults) {
+  mutation addGameResults($newSavedResults: InputData) {
+    addGameResults(newSavedResults: $newSavedResults) {
       _id
       username
       email
