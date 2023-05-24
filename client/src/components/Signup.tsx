@@ -1,63 +1,64 @@
 import React, { useState } from "react";
-import "./Signup.css";
+// import "./Signup.css";
+import {Link} from 'react-router-dom';
+// Import mutation and ADD_USER mutations.js
+import { useMutation } from '@apollo/client';
+import { ADD_USER } from '../utils/mutations';
 
-import { useMutation } from "@apollo/client";
-import { ADD_USER } from "../utils/mutations";
+// import Auth from "../utils/auth";
 
-import Auth from "../utils/auth";
+// export interface SignupProps {
+//   username: string;
+//   email: string;
+//   password: string;
+// }
 
-export interface SignupProps {
-  username: string;
-  email: string;
-  password: string;
-}
-
-const Signup = ({ username, email, password }: SignupProps): JSX.Element => {
+const Signup = (): JSX.Element => {
   const [userFormState, setUserFormState] = useState({
     username: "",
     email: "",
     password: "",
   });
-
-  const [addUser] = useMutation(ADD_USER);
- 
+  
+  const [addUser, {data}] = useMutation(ADD_USER);
+  
 
   // Update the state based on user input changes to form
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
-
-    setUserFormState({
-      ...userFormState,
-      [name]: value,
-    });
+    setUserFormState({...userFormState, [name]: value});
   };
 
+ 
   // Handle the Submit Form
   const handleFormSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    console.log(userFormState);
 
-    const form = event.currentTarget;
-    if (form.checkValidity() === false) {
-      event.preventDefault();
-      event.stopPropagation();
-    }
     try {
       const { data } = await addUser({ variables: { ...userFormState } });
 
-      Auth.login(data.addUser.token);
+      if(data.errors?.length >0){
+        console.log('Error but we made it this far');
+      } else {
+        console.log('This is a success');
+      }
+
+      // console.log(data);
+      // Auth.login(data.addUser.token);
     } catch (err) {
       console.log(err);
     }
 
-    setUserFormState({
-      username: "",
-      email: "",
-      password: "",
-    });
   };
 
   return (
     <div className="w-full max-w-xs">
+      {data ? (
+      <p>
+          Success!
+          <Link to='/home'>Go to Game</Link>
+      </p>): (
       <form
         className="signup-input bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
         onSubmit={handleFormSubmit}
@@ -72,7 +73,7 @@ const Signup = ({ username, email, password }: SignupProps): JSX.Element => {
           <input
             className="form-input shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             placeholder="Your username"
-            name="name"
+            name="username"
             type="text"
             value={userFormState.username}
             onChange={handleChange}
@@ -122,6 +123,8 @@ const Signup = ({ username, email, password }: SignupProps): JSX.Element => {
           </button>
         </div>
       </form>
+      )}
+
       <p className="text-center text-gray-500 text-xs">
         &copy;2023 Project Mash. All rights reserved.
       </p>

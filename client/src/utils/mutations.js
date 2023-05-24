@@ -7,6 +7,19 @@ export const LOGIN_USER = gql`
       user {
         _id
         username
+        email
+        password
+        savedResults {
+          _id
+          mash
+          partner
+          kids
+          career
+          salary
+          transportation
+          death
+          deathAge
+        }
       }
     }
   }
@@ -19,13 +32,26 @@ export const ADD_USER = gql`
       user {
         _id
         username
+        email
+        password
+        savedResults {
+          _id
+          mash
+          partner
+          kids
+          career
+          salary
+          transportation
+          death
+          deathAge
+        }
       }
     }
   }
 `;
 
 export const ADD_GAME_RESULT = gql`
-  mutation addGameResult($newSavedResults: InputData!) {
+  mutation addGameResult($newSavedResults: InputData) {
     addGameResult(newSavedResults: $newSavedResults) {
       _id
       username
@@ -46,8 +72,8 @@ export const ADD_GAME_RESULT = gql`
 `;
 
 export const REMOVE_GAME_RESULT = gql`
-  mutation removeGameResult($idToRemove: ID!) {
-    removeGameResult(id: $idToRemove) {
+  mutation removeGameResults($id: ID!) {
+    removeGameResults(id: $id) {
       _id
       username
       email
