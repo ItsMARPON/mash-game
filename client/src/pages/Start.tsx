@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import Navbar from "../components/Navbar";
 import Home from "./Home";
@@ -6,9 +7,9 @@ import house2 from "../assets/images/coverHouse.png";
 import { Link } from "react-router-dom";
 
 interface Props {}
+
 const Start = () => {
   return (
-    <div>
       <div className="h-screen w-screen bg-white">
         <div className="max-w-screen-lg mx-auto flex flex-col items-center justify-center h-full px-4 md:flex-row">
           <div className="flex flex-col justify-center h-full w-full md:w-1/2">
@@ -42,7 +43,7 @@ const Start = () => {
           </div>
         </div>
       </div>
-    </div>
+
   );
 };
 

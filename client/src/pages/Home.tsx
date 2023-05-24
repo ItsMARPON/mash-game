@@ -35,6 +35,8 @@ const Home = (props: HomeProps) => {
   // Result useState
   const [result, setResult] = useState("");
 
+
+  const mash = ["mansion", "apartment", "shack", "house"];
   const partners = ["John", "Lisa", "Michael", "Sarah", "Brooke", "Jess"];
   const kids = ["0", "1", "2", "3", "5", "10"];
   const careers = [
@@ -47,12 +49,12 @@ const Home = (props: HomeProps) => {
   ];
   const cars = ["Sedan", "SUV", "Sports Car", "Truck", "Bike", "Lambo"];
   const salaries = [
-    "$50,000",
-    "$80,000",
-    "$100,000",
-    "$150,000",
-    "$0",
-    "$1,000,000",
+    "50,000",
+    "80,000",
+    "100,000",
+    "150,000",
+    "0",
+    "1,000,000",
   ];
   const deathAges = ["70", "80", "90", "100", "25", "40", "50"];
   const deaths = [
@@ -66,6 +68,10 @@ const Home = (props: HomeProps) => {
 
   const handleSubmit = (e: React.FormEvent<EventTarget>) => {
     e.preventDefault();
+
+    let selectedMash;
+    selectedMash =
+        mash[Math.floor(Math.random() * mash.length)];
 
     let selectedPartner;
     if (partnerOption && partnerOption2 && partnerOption3) {
@@ -159,12 +165,29 @@ const Home = (props: HomeProps) => {
         deathOption2 ||
         deathOption3 ||
         deaths[Math.floor(Math.random() * deaths.length)];
+
+
     }
 
-    const resultText = `You will marry ${selectedPartner} and have ${selectedKids} kids together. You will work as a ${selectedCareer} for a living, make ${selectedSalary} a year, and drive a ${selectedCar}. You will die at the age of ${selectedDeathAge} by ${selectedDeath}.`;
+
+    const resultData = {
+      "mash": `${selectedMash}`,
+      "partner": `${selectedPartner}`,
+      "kids": `${selectedKids}`,
+      "career": `${selectedCareer}`,
+      "salary": `${selectedSalary}`,
+      "transportation": `${selectedCar}`,
+      "death": `${selectedDeath}`,
+      "deathAge": `${selectedDeathAge}`
+    }
+
+    const resultText = `You will marry ${selectedPartner} and have ${selectedKids} kids together. You will live in a ${selectedMash}. You will work as a ${selectedCareer} for a living, make $${selectedSalary} a year, and drive a ${selectedCar}. You will die at the age of ${selectedDeathAge} by ${selectedDeath}.`;
     setResult(resultText);
+    
+    console.log(resultData);
   };
 
+  
   return (
     <div>
       <div
