@@ -45,7 +45,7 @@ input InputData {
     addUser(username: String!, email: String!, password: String!): Auth
     login(email: String!, password: String!): Auth
     addGameResults(newSavedResults: InputData): User
-    removeGameResults(id: ID!): User
+    removeGameResults(_id: ID!): User
     updateUsername(username: String!): User
 }
 `;

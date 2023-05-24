@@ -42,7 +42,7 @@ const resolvers = {
     
     addGameResults: async (parent, { newSavedResults }, context) => {
       if (context.user) {
-        const updateUser = await User.findByIdAndUpdate(
+        const updateUser = await User.findOneAndUpdate(
           { _id: context.user._id },
           { $push: { savedResults: newSavedResults } },
           { new: true }
@@ -52,11 +52,11 @@ const resolvers = {
       throw new AuthenticationError("You need to be logged in!");
     },
 
-    removeGameResults: async (parent, { id }, context) => {
+    removeGameResults: async (parent, { _id }, context) => {
       if (context.user) {
-        const updateUser = await User.findByIdAndUpdate(
+        const updateUser = await User.findOneAndUpdate(
           { _id: context.user._id },
-          { $pull: { savedResults: { _id: id } } },
+          { $pull: { savedResults: { _id: _id } } },
           { new: true }
         );
         return updateUser;
@@ -66,12 +66,12 @@ const resolvers = {
 
     updateUsername: async (parent, { username }, context) => {
       if (context.user) {
-        return await User.findByIdAndUpdate(
-          context.User._id,
-          { username },
+        const updateUser = await User.findOneAndUpdate(
+          {_id: context.user._id},
+          { $set: {username: username} },
           { new: true }
-        )
-          .populate('savedResults')
+        ).populate('savedResults');
+        return updateUser;
       }
       throw new AuthenticationError('Not logged in')
     },
