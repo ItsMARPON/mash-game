@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import { useMutation } from '@apollo/client';
 import { ADD_GAME_RESULT } from "../utils/mutations";
-import Auth from "../utils/auth";
-
 
 import house from "../assets/images/mashHouse.png";
 import { getUserToken } from "../utils/localStorage";
@@ -11,40 +9,40 @@ export interface HomeProps {
 };
 
 const Home = (props: HomeProps) => {
-  const [partnerOption, setPartnerOption] = useState("");
-  const [partnerOption2, setPartnerOption2] = useState("");
-  const [partnerOption3, setPartnerOption3] = useState("");
+  const [partnerOption, setPartnerOption] = useState<string>("");
+  const [partnerOption2, setPartnerOption2] = useState<string>("");
+  const [partnerOption3, setPartnerOption3] = useState<string>("");
   // Kids useState
-  const [kidsOption, setKidsOption] = useState("");
-  const [kidsOption2, setKidsOption2] = useState("");
-  const [kidsOption3, setKidsOption3] = useState("");
+  const [kidsOption, setKidsOption] = useState<number|null>(null);
+  const [kidsOption2, setKidsOption2] = useState<number|null>(null);
+  const [kidsOption3, setKidsOption3] = useState<number|null>(null);
   // Career useState
-  const [careerOption, setCareerOption] = useState("");
-  const [careerOption2, setCareerOption2] = useState("");
-  const [careerOption3, setCareerOption3] = useState("");
+  const [careerOption, setCareerOption] = useState<string>("");
+  const [careerOption2, setCareerOption2] = useState<string>("");
+  const [careerOption3, setCareerOption3] = useState<string>("");
   // Transportation useState
-  const [carOption, setCarOption] = useState("");
-  const [carOption2, setCarOption2] = useState("");
-  const [carOption3, setCarOption3] = useState("");
+  const [carOption, setCarOption] = useState<string>("");
+  const [carOption2, setCarOption2] = useState<string>("");
+  const [carOption3, setCarOption3] = useState<string>("");
   // Salary useState
-  const [salaryOption, setSalaryOption] = useState("");
-  const [salaryOption2, setSalaryOption2] = useState("");
-  const [salaryOption3, setSalaryOption3] = useState("");
+  const [salaryOption, setSalaryOption] = useState<number|null>(null);
+  const [salaryOption2, setSalaryOption2] = useState<number|null>(null);
+  const [salaryOption3, setSalaryOption3] = useState<number|null>(null);
   // Death Age useState
-  const [deathAgeOption, setDeathAgeOption] = useState("");
-  const [deathAgeOption2, setDeathAgeOption2] = useState("");
-  const [deathAgeOption3, setDeathAgeOption3] = useState("");
+  const [deathAgeOption, setDeathAgeOption] = useState<number|null>(null);
+  const [deathAgeOption2, setDeathAgeOption2] = useState<number|null>(null);
+  const [deathAgeOption3, setDeathAgeOption3] = useState<number|null>(null);
   // Death useState
-  const [deathOption, setDeathOption] = useState("");
-  const [deathOption2, setDeathOption2] = useState("");
-  const [deathOption3, setDeathOption3] = useState("");
+  const [deathOption, setDeathOption] = useState<string>("");
+  const [deathOption2, setDeathOption2] = useState<string>("");
+  const [deathOption3, setDeathOption3] = useState<string>("");
   // Result useState
   const [result, setResult] = useState("");
 
 
   const mash = ["mansion", "apartment", "shack", "house"];
   const partners = ["John", "Lisa", "Michael", "Sarah", "Brooke", "Jess"];
-  const kids = ["0", "1", "2", "3", "5", "10"];
+  const kids = [0, 1, 2, 3, 5, 10];
   const careers = [
     "Engineer",
     "Teacher",
@@ -55,14 +53,14 @@ const Home = (props: HomeProps) => {
   ];
   const cars = ["Sedan", "SUV", "Sports Car", "Truck", "Bike", "Lambo"];
   const salaries = [
-    "50,000",
-    "80,000",
-    "100,000",
-    "150,000",
-    "0",
-    "1,000,000",
+    50000,
+    80000,
+    100000,
+    150000,
+    0,
+    1000000,
   ];
-  const deathAges = ["70", "80", "90", "100", "25", "40", "50"];
+  const deathAges = [70, 80, 90, 100, 25, 40, 50];
   const deaths = [
     "Old Age",
     "Accident",
@@ -72,7 +70,7 @@ const Home = (props: HomeProps) => {
     "Hotdog",
   ];
 
-  const [addGameResult, { error }] = useMutation(ADD_GAME_RESULT);
+  const [addGameResult ] = useMutation(ADD_GAME_RESULT);
 
   const handleSubmit = async (e: React.FormEvent<EventTarget>) => {
     e.preventDefault();
@@ -177,16 +175,17 @@ const Home = (props: HomeProps) => {
 
     }
 
-    const resultData = {
-      "mash": `${selectedMash}`,
-      "partner": `${selectedPartner}`,
-      "kids": `${selectedKids}`,
-      "career": `${selectedCareer}`,
-      "salary": `${selectedSalary}`,
-      "transportation": `${selectedCar}`,
-      "death": `${selectedDeath}`,
-      "deathAge": `${selectedDeathAge}`
+    const resultData  = {
+      mash: selectedMash,
+      partner: selectedPartner,
+      kids: selectedKids,
+      career: selectedCareer,
+      salary: selectedSalary,
+      transportation: selectedCar,
+      death: selectedDeath,
+      deathAge: selectedDeathAge,
     }
+
 
     const resultText = `You will marry ${selectedPartner} and have ${selectedKids} kids together. You will live in a ${selectedMash}. You will work as a ${selectedCareer} for a living, make $${selectedSalary} a year, and drive a ${selectedCar}. You will die at the age of ${selectedDeathAge} by ${selectedDeath}.`;
     setResult(resultText);
@@ -200,14 +199,12 @@ const Home = (props: HomeProps) => {
     }
 
     try {
-      const { data } = await addGameResult({
-        variables: { ...resultData },
+       await addGameResult({
+        variables: {newSavedResults: resultData},
       });
     } catch (err) {
       console.error(err);
     }
-
-
     console.log(resultData);
   };
 
@@ -271,24 +268,24 @@ const Home = (props: HomeProps) => {
                 <input
                   type="text"
                   id="kids"
-                  value={kidsOption}
-                  onChange={(e) => setKidsOption(e.target.value)}
+                  value={ kidsOption || "" }
+                  onChange={(e) => setKidsOption(parseInt(e.target.value))}
                   className="border border-gray-300 rounded-md p-1"
                 />
                 <br />
                 <input
                   type="text"
                   id="kids2"
-                  value={kidsOption2}
-                  onChange={(e) => setKidsOption2(e.target.value)}
+                  value={kidsOption2 || "" }
+                  onChange={(e) => setKidsOption2(parseInt(e.target.value))}
                   className="border border-gray-300 rounded-md p-1"
                 />
                 <br />
                 <input
                   type="text"
                   id="kids3"
-                  value={kidsOption3}
-                  onChange={(e) => setKidsOption3(e.target.value)}
+                  value={kidsOption3 || "" }
+                  onChange={(e) => setKidsOption3(parseInt(e.target.value))}
                   className="border border-gray-300 rounded-md p-1"
                 />
               </div>
@@ -337,24 +334,24 @@ const Home = (props: HomeProps) => {
                 <input
                   type="text"
                   id="deathAge"
-                  value={deathAgeOption}
-                  onChange={(e) => setDeathAgeOption(e.target.value)}
+                  value={deathAgeOption || "" }
+                  onChange={(e) => setDeathAgeOption(parseInt(e.target.value))}
                   className="border border-gray-300 rounded-md p-1"
                 />
                 <br />
                 <input
                   type="text"
                   id="deathAge2"
-                  value={deathAgeOption2}
-                  onChange={(e) => setDeathAgeOption2(e.target.value)}
+                  value={deathAgeOption2 || "" }
+                  onChange={(e) => setDeathAgeOption2(parseInt(e.target.value))}
                   className="border border-gray-300 rounded-md p-1"
                 />
                 <br />
                 <input
                   type="text"
                   id="deathAge3"
-                  value={deathAgeOption3}
-                  onChange={(e) => setDeathAgeOption3(e.target.value)}
+                  value={deathAgeOption3 || "" }
+                  onChange={(e) => setDeathAgeOption3(parseInt(e.target.value))}
                   className="border border-gray-300 rounded-md p-1"
                 />
               </div>
@@ -404,24 +401,24 @@ const Home = (props: HomeProps) => {
                 <input
                   type="text"
                   id="salary"
-                  value={salaryOption}
-                  onChange={(e) => setSalaryOption(e.target.value)}
+                  value={salaryOption || "" }
+                  onChange={(e) => setSalaryOption(parseInt(e.target.value))}
                   className="border border-gray-300 rounded-md p-1"
                 />
                 <br />
                 <input
                   type="text"
                   id="salary2"
-                  value={salaryOption2}
-                  onChange={(e) => setSalaryOption2(e.target.value)}
+                  value={salaryOption2 || "" }
+                  onChange={(e) => setSalaryOption2(parseInt(e.target.value))}
                   className="border border-gray-300 rounded-md p-1"
                 />
                 <br />
                 <input
                   type="text"
                   id="salary3"
-                  value={salaryOption3}
-                  onChange={(e) => setSalaryOption3(e.target.value)}
+                  value={salaryOption3 || "" }
+                  onChange={(e) => setSalaryOption3(parseInt(e.target.value))}
                   className="border border-gray-300 rounded-md p-1"
                 />
               </div>

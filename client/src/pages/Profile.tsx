@@ -35,16 +35,22 @@ const Profile:  React.FC = () => {
 
   const userData = data?.me;
 
-  const handleDeleteGameResult = async (id: string) => {
-    // const token = Auth.loggedIn() ? Auth.getToken() : null;
+  const handleDeleteGameResult = async (_id: string) => {
     const token = getUserToken()
 
     if (!token) {
       return false;
     }
 
+    const idData = {
+      _id: _id,
+    }
+
+    console.log(idData)
     try {
-      await removeGameResult({ variables: { id } });
+      await removeGameResult({
+        variables: { removeGameResults: idData},
+      });
       refetch();
     } catch (err) {
       console.error(err);
