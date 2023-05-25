@@ -4,6 +4,7 @@ import { GET_ME } from "../utils/queries";
 import { REMOVE_GAME_RESULT } from "../utils/mutations";
 import { getUserToken } from '../utils/localStorage';
 
+
 type User = {
     me: {
       email: string;
@@ -66,12 +67,12 @@ const Profile:  React.FC = () => {
     return (
       <>
       <div className="text-light bg-dark p-5">
-        <div className="container mx-auto">
-          <h1>View your Profile!</h1>
+        <div className="container mx-auto" style={{textAlign: "center", fontSize: "1.5rem", fontWeight: "600"}}>
+          <h1>View your History!</h1>
         </div>
       </div>
-      <div className="container mx-auto">
-        <h2 className="pt-5">
+      <div className="container mx-auto" style={{padding: "20px", background: "lightgray", margin: "0 5vh", borderRadius: "12px"}}>
+        <h2 className="pt-5"style={{margin: "10px", fontSize: "1.2rem", textDecoration: "underline"}}>
           {userData.savedResults&& userData.savedResults.length
             ? `Viewing ${userData.savedResults.length} saved`
             : "You have no saved results!"}
@@ -80,7 +81,7 @@ const Profile:  React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {userData.savedResults?.map((result, index) => (
             
-            <div key={index}>
+            <div key={index} style={{ border: "2px solid black", borderRadius: "12px", padding: "5px", background: "white"}}>
                 <div>
                   <h3 className="text-lg font-semibold mb-2">{result.mash}</h3>
                   <p className="text-sm text-gray-600">User: {userData.username}</p>
