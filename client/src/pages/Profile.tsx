@@ -39,17 +39,16 @@ const Profile:  React.FC = () => {
       return false;
     }
 
-    const idData = {
-      _id: id,
-    }
-
-    console.log(idData)
     try {
+      console.log("SPOT 1");
       await removeGameResult({
-        variables: { removeGameResults: {idData}},
+        variables: { '_id': id },
       });
+      console.log("SPOT 2");
       refetch();
+      console.log("SPOT 3");
     } catch (err) {
+      console.log("SPOT 4");
       console.error(err);
     
     }
