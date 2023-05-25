@@ -3,8 +3,9 @@ import { Link } from "react-router-dom";
 // Import mutation and ADD_USER mutations.js
 import { useMutation } from "@apollo/client";
 import { ADD_USER } from "../utils/mutations";
+import { saveUserToken } from "../utils/localStorage";
 
-// import Auth from "../utils/auth";
+import Auth from "../utils/auth";
 
 const Signup = (): JSX.Element => {
   const [userFormState, setUserFormState] = useState({
@@ -33,10 +34,11 @@ const Signup = (): JSX.Element => {
         console.log("Error but we made it this far");
       } else {
         console.log("This is a success");
+        saveUserToken(data.addUser.token);
+        
       }
 
-      // console.log(data);
-      // Auth.login(data.addUser.token);
+      Auth.login(data.addUser.token);
     } catch (err) {
       console.log(err);
     }
