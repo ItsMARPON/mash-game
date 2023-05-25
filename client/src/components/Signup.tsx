@@ -48,7 +48,7 @@ const Signup = (): JSX.Element => {
       {data ? (
         <p>
           Success!
-          <Link to="/">Go</Link>
+          <Link to="/profile"></Link>
         </p>
       ) : (
         <section className="w-screen">
