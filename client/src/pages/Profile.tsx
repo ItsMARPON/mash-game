@@ -31,7 +31,7 @@ const Profile:  React.FC = () => {
   );
 
   const userData = data?.me;
-
+//removing game result
   const handleDeleteGameResult = async (id: string) => {
     const token = getUserToken()
 
@@ -51,6 +51,7 @@ const Profile:  React.FC = () => {
       refetch();
     } catch (err) {
       console.error(err);
+    
     }
   };
 
