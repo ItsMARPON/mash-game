@@ -40,7 +40,7 @@ const Home = (props: HomeProps) => {
   const [result, setResult] = useState("");
 
 
-  const mash = ["mansion", "apartment", "shack", "house"];
+  const mash = ["Mansion", "Apartment", "Shack", "House"];
   const partners = ["John", "Lisa", "Michael", "Sarah", "Brooke", "Jess"];
   const kids = [0, 1, 2, 3, 5, 10];
   const careers = [
