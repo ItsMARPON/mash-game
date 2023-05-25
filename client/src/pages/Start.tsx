@@ -1,12 +1,11 @@
-
-import React, { useState } from "react";
-import Navbar from "../components/Navbar";
-import Home from "./Home";
-import Profile from "./Profile";
+import React from "react";
+// import Navbar from "../components/Navbar";
+// import Home from "./Home";
+// import Profile from "./Profile";
 import house2 from "../assets/images/coverHouse.png";
 import { Link } from "react-router-dom";
 
-interface Props {}
+// interface Props {}
 
 const Start = () => {
   return (

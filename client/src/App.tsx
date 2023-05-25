@@ -2,8 +2,6 @@ import React from 'react';
 import { ApolloClient, ApolloProvider, InMemoryCache, createHttpLink } from '@apollo/client';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import {setContext} from '@apollo/client/link/context';
-// import './App.css';
-// import Signup, {SignupProps} from './components/Signup';
 import Signup from './components/Signup';
 import Navbar from './components/Navbar';
 import Profile from './pages/Profile';
@@ -38,11 +36,6 @@ const client = new ApolloClient({
 
 
 function App() {
-// const signupProps: SignupProps = {
-//   username: '',
-//   email: '',
-//   password: ''
-// }
 
 const homeProps: HomeProps ={
   handleSubmit: (e: React.FormEvent<EventTarget>): void => {
