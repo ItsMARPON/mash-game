@@ -3,7 +3,9 @@ import { useMutation } from '@apollo/client';
 import { ADD_GAME_RESULT } from "../utils/mutations";
 import Auth from "../utils/auth";
 
+
 import house from "../assets/images/mashHouse.png";
+import { getUserToken } from "../utils/localStorage";
 export interface HomeProps {
   handleSubmit: (e: React.FormEvent<EventTarget>) => void;
 };
@@ -188,21 +190,20 @@ const Home = (props: HomeProps) => {
 
     const resultText = `You will marry ${selectedPartner} and have ${selectedKids} kids together. You will live in a ${selectedMash}. You will work as a ${selectedCareer} for a living, make $${selectedSalary} a year, and drive a ${selectedCar}. You will die at the age of ${selectedDeathAge} by ${selectedDeath}.`;
     setResult(resultText);
-    
-    const token = Auth.loggedIn() ? Auth.getToken() : null;
-    console.log(Auth.getToken());
-    
-    // if (!token) {
-    //   console.log(resultData);
-    //   return false;
-    // }
-    
+
+    // const token = Auth.loggedIn() ? Auth.getToken() : null;
+    const token = getUserToken();
+  
+    if (!token) {
+      console.log(resultData);
+      return false;
+    }
     try {
       console.log('made it here sweet cheeks');
       const { data } = await addGameResult({
         variables: { ...resultData },
       });
-      
+
     } catch (err) {
       console.error(err);
     }

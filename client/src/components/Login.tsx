@@ -2,7 +2,9 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useMutation } from "@apollo/client";
 import { LOGIN_USER } from "../utils/mutations";
-import Auth from "../utils/auth";
+import { saveUserToken } from "../utils/localStorage";
+// import Auth from "../utils/auth";
+
 
 const Login = (): JSX.Element => {
  
@@ -24,11 +26,10 @@ const Login = (): JSX.Element => {
       if (data.errors?.length > 0) {
         console.log("Error but we made it this far");
       } else {
-        console.log(data.login);
-        Auth.login(data.login.token);
+        console.log("This is a success");
+        saveUserToken(data.login.token)
       }
-
-      // console.log(data);
+      console.log(data);
     } catch (err) {
       console.error(err);
     }

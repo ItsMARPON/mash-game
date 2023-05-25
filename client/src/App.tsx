@@ -20,7 +20,7 @@ const httpLink = createHttpLink({
 // Request middleware that will attach the JWT token to every request as an `authorization` header
 const authLink = setContext((_, { headers }) => {
   // get the authentication token from local storage if it exists
-  const token = localStorage.getItem('id_token');
+  const token = localStorage.getItem('user_token');
   // return the headers to the context so httpLink can read them
   return {
     headers: {
@@ -86,7 +86,7 @@ const homeProps: HomeProps ={
               />
               {/*Path to Profile for Logged In User */}
               <Route 
-                path="/profile/:profileId" 
+                path="/profile" 
                 element={<Profile />} 
               />
               <Route path="*" element={<h2> Page Cannot Be Found </h2>} />
