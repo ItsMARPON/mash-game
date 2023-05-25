@@ -31,7 +31,7 @@ const Profile:  React.FC = () => {
   );
 
   const userData = data?.me;
-
+//removing game result
   const handleDeleteGameResult = async (id: string) => {
     const token = getUserToken()
 
@@ -51,6 +51,7 @@ const Profile:  React.FC = () => {
       refetch();
     } catch (err) {
       console.error(err);
+    
     }
   };
 
@@ -79,6 +80,7 @@ const Profile:  React.FC = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {userData.savedResults?.map((result, index) => (
+            
             <div key={index}>
                 <div>
                   <h3 className="text-lg font-semibold mb-2">{result.mash}</h3>
@@ -90,8 +92,12 @@ const Profile:  React.FC = () => {
                     Delete this Story!
                   </button>
                 </div>
+
+                <p>You will marry {result.partner} and have {result.kids} kids together. You will live in a {result.mash}. You will work as a {result.career} for a living, make ${result.salary} a year, and drive a {result.transportation}. You will die at the age of {result.deathAge} by {result.death}.</p>
               </div>
-          ))}
+          ))
+      
+          }
         </div>
       </div>
     </>

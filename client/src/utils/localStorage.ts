@@ -13,5 +13,5 @@ export const getUserToken = () => {
   export const logoutUser = () =>{
     // Clear user token and user data from localStorage
     localStorage.removeItem('user_token');
-   window.location.reload()
+   window.location.replace('/')
   }
