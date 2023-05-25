@@ -1,11 +1,10 @@
 import React, { useState } from "react";
-import { Navigate, useNavigate} from "react-router-dom";
+import { Link } from "react-router-dom";
 // Import mutation and ADD_USER mutations.js
 import { useMutation } from "@apollo/client";
 import { ADD_USER } from "../utils/mutations";
 
 // import Auth from "../utils/auth";
-
 
 const Signup = (): JSX.Element => {
   const [userFormState, setUserFormState] = useState({
@@ -13,8 +12,6 @@ const Signup = (): JSX.Element => {
     email: "",
     password: "",
   });
-
-  const navigate = useNavigate();
 
   const [addUser, { data }] = useMutation(ADD_USER);
 
@@ -38,7 +35,7 @@ const Signup = (): JSX.Element => {
         console.log("This is a success");
       }
 
-      console.log(data);
+      // console.log(data);
       // Auth.login(data.addUser.token);
     } catch (err) {
       console.log(err);
@@ -50,86 +47,70 @@ const Signup = (): JSX.Element => {
       {data ? (
         <p>
           Success!
-          <Navigate to={"/"} />
+          <Link to="/home">Go to Game</Link>
         </p>
       ) : (
-        <section className="w-screen">
-          <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
-            <div className="w-full rounded-lg shadow-2xl shadow-black dark:border md:mt-0 sm:max-w-md bg-gray-500">
-              <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-                <h1 className="text-xl font-bold leading-tight tracking-tight text-white md:text-2xl">
-                  Sign up for an Account
-                </h1>
-                <form
-                  className="signup-input bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
-                  onSubmit={handleFormSubmit}
-                >
-                  <div className="mb-4">
-                    <label
-                      className="block text-gray-700 text-sm font-bold mb-2"
-                      htmlFor="username"
-                    >
-                      Username
-                    </label>
-                    <input
-                      className="form-input shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                      placeholder="Your username"
-                      name="username"
-                      type="text"
-                      value={userFormState.username}
-                      onChange={handleChange}
-                    />
-                  </div>
-                  <div className="mb-6">
-                    <label
-                      className="block text-gray-700 text-sm font-bold mb-2"
-                      htmlFor="password"
-                    >
-                      Email
-                    </label>
-                    <input
-                      className="form-input shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
-                      placeholder="Your email"
-                      name="email"
-                      type="email"
-                      value={userFormState.email}
-                      onChange={handleChange}
-                    />
-                  </div>
-                  <div className="mb-6">
-                    <label
-                      className="block text-gray-700 text-sm font-bold mb-2"
-                      htmlFor="password"
-                    >
-                      Password
-                    </label>
-                    <input
-                      className="form-input shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
-                      placeholder="*********"
-                      name="password"
-                      type="password"
-                      value={userFormState.password}
-                      onChange={handleChange}
-                    />
-                    <p className="text-red-500 text-xs italic">
-                      Please create a password.
-                    </p>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <button
-                      className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                      type="submit"
-                    >
-                      Sign up
-                    </button>
-                  </div>
-                </form>
-              </div>
+        <div className="w-screen">
+          <div className="flex flex-col justify-center min-h-screen overflow-hidden">
+            <div className="w-full p-6 m-auto bg-white rounded-md shadow-xl shadow-black sm:max-w-xl border border-black">
+              <h1 className="text-3xl text-black">Sign up for an account</h1>
+              <form className="mt-6" onSubmit={handleFormSubmit}>
+                <div className="mb-2">
+                  <label className="block text-sm font-semibold text-gray-800">
+                    Username
+                  </label>
+                  <input
+                    type="text"
+                    name="username"
+                    id="username"
+                    value={userFormState.username}
+                    onChange={handleChange}
+                    className="block w-full px-4 py-2 mt-2 text-black bg-[#ededed] border rounded-md focus:border-gray-400 focus:ring-gray-300 focus:outline-none focus:ring focus:ring-opacity-40"
+                    placeholder="Your username"
+                  />
+                </div>
+                <div className="mb-2">
+                  <label className="block text-sm font-semibold text-gray-800">
+                    Email
+                  </label>
+                  <input
+                    type="email"
+                    name="email"
+                    id="email"
+                    value={userFormState.email}
+                    onChange={handleChange}
+                    className="block w-full px-4 py-2 mt-2 text-black bg-[#ededed] border rounded-md focus:border-gray-400 focus:ring-gray-300 focus:outline-none focus:ring focus:ring-opacity-40"
+                    placeholder="name@company.com"
+                  />
+                </div>
+                <div className="mb-2">
+                  <label className="block text-sm font-semibold text-gray-800">
+                    Password
+                  </label>
+                  <input
+                    type="password"
+                    name="password"
+                    id="password"
+                    placeholder="••••••••"
+                    value={userFormState.password}
+                    onChange={handleChange}
+                    className="block w-full px-4 py-2 mt-2 text-black bg-[#ededed] border rounded-md focus:border-gray-400 focus:ring-gray-300 focus:outline-none focus:ring focus:ring-opacity-40"
+                  />
+                </div>
+                <div className="mt-6">
+                  <button className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-black rounded-md hover:bg-gray-800">
+                    Sign up
+                  </button>
+                </div>
+              </form>
+
+              <p className="text-red-500 text-xs italic m-2">
+                Please create a password.
+              </p>
             </div>
           </div>
-        </section>
+        </div>
       )}
-
       <p className="text-center text-gray-500 text-xs">
         &copy;2023 Project Mash. All rights reserved.
       </p>
