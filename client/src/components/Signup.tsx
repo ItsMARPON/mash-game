@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Navigate, useNavigate} from "react-router-dom";
 // Import mutation and ADD_USER mutations.js
 import { useMutation } from "@apollo/client";
 import { ADD_USER } from "../utils/mutations";
@@ -13,6 +13,8 @@ const Signup = (): JSX.Element => {
     email: "",
     password: "",
   });
+
+  const navigate = useNavigate();
 
   const [addUser, { data }] = useMutation(ADD_USER);
 
@@ -36,7 +38,7 @@ const Signup = (): JSX.Element => {
         console.log("This is a success");
       }
 
-      // console.log(data);
+      console.log(data);
       // Auth.login(data.addUser.token);
     } catch (err) {
       console.log(err);
@@ -48,7 +50,7 @@ const Signup = (): JSX.Element => {
       {data ? (
         <p>
           Success!
-          <Link to="/profile"></Link>
+          <Navigate to={"/"} />
         </p>
       ) : (
         <section className="w-screen">
