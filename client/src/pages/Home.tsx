@@ -69,16 +69,16 @@ const Home = (props: HomeProps) => {
     "Skydiving",
     "Hotdog",
   ];
-
+  
   const [addGameResult, { error }] = useMutation(ADD_GAME_RESULT);
-
+  
   const handleSubmit = async (e: React.FormEvent<EventTarget>) => {
     e.preventDefault();
-
+    
     let selectedMash;
     selectedMash =
         mash[Math.floor(Math.random() * mash.length)];
-
+        
     let selectedPartner;
     if (partnerOption && partnerOption2 && partnerOption3) {
       // Randomly pick one of the three assigned values
@@ -127,7 +127,7 @@ const Home = (props: HomeProps) => {
       selectedCar = [carOption, carOption2, carOption3][randomIndex];
     } else {
       selectedCar =
-        carOption ||
+      carOption ||
         carOption2 ||
         carOption3 ||
         cars[Math.floor(Math.random() * cars.length)];
@@ -141,12 +141,12 @@ const Home = (props: HomeProps) => {
       ];
     } else {
       selectedSalary =
-        salaryOption ||
-        salaryOption2 ||
-        salaryOption3 ||
-        salaries[Math.floor(Math.random() * salaries.length)];
+      salaryOption ||
+      salaryOption2 ||
+      salaryOption3 ||
+      salaries[Math.floor(Math.random() * salaries.length)];
     }
-
+    
     let selectedDeathAge;
     if (deathAgeOption && deathAgeOption2 && deathAgeOption3) {
       const randomIndex = Math.floor(Math.random() * 3);
@@ -190,22 +190,25 @@ const Home = (props: HomeProps) => {
     setResult(resultText);
     
     const token = Auth.loggedIn() ? Auth.getToken() : null;
-  
-    if (!token) {
-      console.log(resultData);
-      return false;
-    }
-
+    console.log(Auth.getToken());
+    
+    // if (!token) {
+    //   console.log(resultData);
+    //   return false;
+    // }
+    
     try {
+      console.log('made it here sweet cheeks');
       const { data } = await addGameResult({
         variables: { ...resultData },
       });
-
-      window.location.reload();
+      
     } catch (err) {
       console.error(err);
     }
-
+    
+    
+    // window.location.href = 'http://localhost:3000/profile';
 
     console.log(resultData);
   };
