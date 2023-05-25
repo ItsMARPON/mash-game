@@ -1,6 +1,7 @@
 import React from "react";
 // import ReactDOM from "react-dom/client";
 import { Link } from "react-router-dom";
+import { getUserToken, logoutUser } from "../utils/localStorage";
 import Menu from './Menu';
 // import Home from '../pages/Home';
 // import Login from '../components/Login';
@@ -15,6 +16,7 @@ interface NavbarProps {
 const Navbar: React.FC<NavbarProps> = () => {
  
   const [navbarOpen, setNavbarOpen] = React.useState(false);
+  
   return (
     <>
       <nav className="relative flex flex-wrap items-center justify-between px-2 py-3 bg-emerald-500 mb-3">
@@ -35,6 +37,11 @@ const Navbar: React.FC<NavbarProps> = () => {
             </button>
           </div>
           <div
+                  className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75">
+                  <Menu />
+                  {/* <i className="text-lg leading-lg text-white opacity-75"></i><span className="ml-2">MENU</span> */}
+                </div>
+          <div
             className={
               "lg:flex flex-grow items-center" +
               (navbarOpen ? " flex" : " hidden")
@@ -43,12 +50,10 @@ const Navbar: React.FC<NavbarProps> = () => {
           >
             <ul className="flex flex-col lg:flex-row list-none lg:ml-auto">
             <li className="nav-item">
-                <div
-                  className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75">
-                  <Menu />
-                  {/* <i className="text-lg leading-lg text-white opacity-75"></i><span className="ml-2">MENU</span> */}
-                </div>
+               
               </li>
+              {!getUserToken() ?
+              <>
             <li className="nav-item">
                 <Link
                   className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
@@ -65,6 +70,19 @@ const Navbar: React.FC<NavbarProps> = () => {
                   <i className="text-lg leading-lg text-white opacity-75"></i><span className="ml-2">Log in</span>
                 </Link>
               </li>
+              </>
+              :
+              <>
+              <li className="nav-item">
+              <Link
+                className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
+                to="/"
+                onClick={() => logoutUser()}
+              >
+                <i className="text-lg leading-lg text-white opacity-75"></i><span className="ml-2">Logout</span>
+              </Link>
+            </li>
+               
               <li className="nav-item">
                 <Link
                   className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
@@ -73,6 +91,8 @@ const Navbar: React.FC<NavbarProps> = () => {
                   <i className="text-lg leading-lg text-white opacity-75"></i><span className="ml-2">Profile</span>
                 </Link>
               </li>
+              </>
+              }
               <li className="nav-item">
                 <a
                   className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"

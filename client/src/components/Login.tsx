@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useMutation } from "@apollo/client";
 import { LOGIN_USER } from "../utils/mutations";
 import { saveUserToken } from "../utils/localStorage";
@@ -8,8 +8,10 @@ import { saveUserToken } from "../utils/localStorage";
 const Login = (): JSX.Element => {
  
   const [userData, setUserData] = useState({email: '', password: ''});
+  const [loginError, setLoginError] = useState("");
 
   const [login, {data}] = useMutation(LOGIN_USER);
+  const navigate = useNavigate();
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -23,25 +25,24 @@ const Login = (): JSX.Element => {
       const { data } = await login({ variables: { ...userData} });
 
       if (data.errors?.length > 0) {
-        console.log("Error but we made it this far");
+        
+        console.log("error")
       } else {
         console.log("This is a success");
         saveUserToken(data.login.token)
+        setLoginError("");
+        navigate("/");
+        window.location.reload();
       }
       console.log(data);
     } catch (err) {
-      console.error(err);
+      setLoginError("Error with credentials, please try again");
     }
   };
 
   return (
     <section className="w-screen">
-      {data ? (
-        <p>
-          Success!
-          <Link to="/profile">Go to Profile</Link>
-        </p>
-      ): (
+      
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
         <div className="w-full rounded-lg shadow-2xl shadow-black dark:border md:mt-0 sm:max-w-md bg-gray-500">
           <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
@@ -98,12 +99,11 @@ const Login = (): JSX.Element => {
                   Sign up
                 </a>
               </p>
+              {loginError.length ? <p>{loginError}</p> : null}
             </form>
           </div>
         </div>
       </div>
-      
-      )}
     </section>
   );
 };

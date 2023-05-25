@@ -175,7 +175,7 @@ const Home = (props: HomeProps) => {
 
     }
 
-    const resultData  = {
+    const resultData = {
       mash: selectedMash,
       partner: selectedPartner,
       kids: selectedKids,

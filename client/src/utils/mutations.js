@@ -72,8 +72,8 @@ export const ADD_GAME_RESULT = gql`
 `;
 
 export const REMOVE_GAME_RESULT = gql`
-  mutation removeGameResults($gameId: ID!) {
-    removeGameResults(_id: $id) {
+  mutation removeGameResults($_id: ID!) {
+    removeGameResults(_id: $_id) {
       _id
       username
       email

@@ -1,10 +1,7 @@
 import React from 'react';
-import Login from '../components/Login';
-import Navbar from "../components/Navbar";
 import { useQuery, useMutation } from "@apollo/client";
 import { GET_ME } from "../utils/queries";
 import { REMOVE_GAME_RESULT } from "../utils/mutations";
-import Auth from "../utils/auth";
 import { getUserToken } from '../utils/localStorage';
 
 type User = {
@@ -35,7 +32,7 @@ const Profile:  React.FC = () => {
 
   const userData = data?.me;
 
-  const handleDeleteGameResult = async (_id: string) => {
+  const handleDeleteGameResult = async (id: string) => {
     const token = getUserToken()
 
     if (!token) {
@@ -43,13 +40,13 @@ const Profile:  React.FC = () => {
     }
 
     const idData = {
-      _id: _id,
+      _id: id,
     }
 
     console.log(idData)
     try {
       await removeGameResult({
-        variables: { removeGameResults: idData},
+        variables: { removeGameResults: {idData}},
       });
       refetch();
     } catch (err) {
