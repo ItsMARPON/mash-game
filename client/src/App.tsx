@@ -47,7 +47,7 @@ function App() {
 const homeProps: HomeProps ={
   handleSubmit: (e: React.FormEvent<EventTarget>): void => {
     let target = e.target as HTMLInputElement;
-}
+  }
 }
 
   return (
