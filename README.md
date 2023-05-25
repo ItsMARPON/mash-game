@@ -35,8 +35,15 @@ When starting you will choose between logging-in/Signing-up or go straight to th
 
 Below is a screenshot of the working project:
 
-![mockup of running project](./assets/?????.png)
+![Screenshot 2023-05-25 at 5 14 13 PM](https://github.com/ItsMARPON/mash-game/assets/117555071/33c62345-0864-44f7-99d7-2c177a00009e)
 
+![Screenshot 2023-05-25 at 5 14 57 PM](https://github.com/ItsMARPON/mash-game/assets/117555071/b3cf4011-e55d-4243-addc-220f1a1280af)
+
+![Screenshot 2023-05-25 at 5 16 13 PM](https://github.com/ItsMARPON/mash-game/assets/117555071/c46b80ec-3b70-4f0f-98e7-45d02ae7d14d)
+
+![Screenshot 2023-05-25 at 5 17 08 PM](https://github.com/ItsMARPON/mash-game/assets/117555071/076223a0-e25c-482e-a1e0-cdb83bcf4e61)
+
+![Screenshot 2023-05-25 at 5 17 37 PM](https://github.com/ItsMARPON/mash-game/assets/117555071/a6c1fda0-7598-43e9-92b1-12d0df279bc3)
 
 ## Links
 
